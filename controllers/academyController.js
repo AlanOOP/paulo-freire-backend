@@ -1,4 +1,4 @@
-import {AcademyActivities} from "../models/index.js";
+import { AcademyActivities } from "../models/index.js";
 
 export const getAcademyActivities = async (req, res) => {
     try {
@@ -10,11 +10,8 @@ export const getAcademyActivities = async (req, res) => {
 }
 
 export const getAcademyActivity = async (req, res) => {
-    
     const { id } = req.params;
-
     try {
-
         if (!id) {
             const error = new Error('Campos requeridos');
             return res.status(400).json(error.message);
@@ -25,7 +22,6 @@ export const getAcademyActivity = async (req, res) => {
                 id: req.params.id
             }
         });
-
 
         if (!academyActivity) {
             const error = new Error('Actividad no encontrada');
@@ -41,11 +37,11 @@ export const getAcademyActivity = async (req, res) => {
 export const createAcademyActivity = async (req, res) => {
     try {
 
-        const { title , description } = req.body;
+        const { title, description } = req.body;
 
         if (!title || !description) {
-           const error = new Error('Campos requeridos');
-           return res.status(400).json(error.message);
+            const error = new Error('Campos requeridos');
+            return res.status(400).json(error.message);
         }
 
         const academyActivity = await AcademyActivities.create(
@@ -58,20 +54,20 @@ export const createAcademyActivity = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-}   
+}
 
 export const updateAcademyActivity = async (req, res) => {
     try {
 
         const { id } = req.params;
-        const { title , description } = req.body;
+        const { title, description } = req.body;
 
         const academyActivityExists = await AcademyActivities.findOne({
             where: {
                 id: id
             }
         });
-        
+
         if (!title || !description) {
             const error = new Error('Campos requeridos');
             return res.status(400).json(error.message);
@@ -95,19 +91,30 @@ export const updateAcademyActivity = async (req, res) => {
 }
 
 export const deleteAcademyActivity = async (req, res) => {
-
     const { id } = req.params;
     try {
         if (!id) {
             const error = new Error('Campos requeridos');
             return res.status(400).json(error.message);
         }
+
+        const result = await AcademyActivities.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if (!result) {
+            const error = new Error('Actividad no encontrada');
+            return res.status(404).json(error.message);
+        }
+
         const academyActivity = await AcademyActivities.destroy({
             where: {
                 id: req.params.id
             }
         });
-        
+
         return res.json(academyActivity);
 
     } catch (error) {

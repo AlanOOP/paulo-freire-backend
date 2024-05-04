@@ -1,10 +1,9 @@
 import cloudinary from "../utils/cloudinary.js";
 import {AcademyActivities, ImageActivities} from "../models/index.js";
 
-
 export const getImagesActivities = async (req, res) => {
     try {
-        const imagesActivities = await ImagesActivities.findAll();
+        const imagesActivities = await ImageActivities.findAll();
         res.json(imagesActivities);
     } catch (error) {
         console.log(error);
@@ -31,10 +30,7 @@ export const createImageActivity = async (req, res) => {
             return res.status(400).json(error.message);
         }
     
-
         //crear path 
-
-
 
         const result = await cloudinary.uploader.upload(image.path,{
             folder: 'activities',

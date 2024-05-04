@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const ImageActivities = db.define("ImageActivities", {
+const Blog = db.define("Blog", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -9,15 +9,30 @@ const ImageActivities = db.define("ImageActivities", {
         primaryKey: true,
         unique: true,
     },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
+        allowNull: false
     },
-    url: {
+    img: {
         type: DataTypes.STRING,
+        allowNull: false
     },
-    public_id: {
+    public_id:{
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    date: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
-});
+},
+    {
+        timestamps: true
+    }
+);
 
-export default ImageActivities;
+export default Blog;

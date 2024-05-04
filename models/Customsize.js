@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const ImageActivities = db.define("ImageActivities", {
+const Customsize = db.define("Customsize", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -9,15 +9,16 @@ const ImageActivities = db.define("ImageActivities", {
         primaryKey: true,
         unique: true,
     },
-    description: {
+    slideImg: {
         type: DataTypes.STRING,
-    },
-    url: {
-        type: DataTypes.STRING,
+        allowNull: false
     },
     public_id: {
         type: DataTypes.STRING,
+        allowNull: false
     }
+}, {
+    timestamps: true
 });
 
-export default ImageActivities;
+export default Customsize;

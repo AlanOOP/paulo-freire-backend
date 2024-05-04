@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const ImageActivities = db.define("ImageActivities", {
+const User = db.define("User", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -9,15 +9,25 @@ const ImageActivities = db.define("ImageActivities", {
         primaryKey: true,
         unique: true,
     },
-    description: {
+    name: {
         type: DataTypes.STRING,
     },
-    url: {
+    lastName: {
         type: DataTypes.STRING,
     },
-    public_id: {
+    email: {
         type: DataTypes.STRING,
-    }
+        unique: true,
+    },
+    password: {
+        type: DataTypes.STRING,
+    },
+    role: {
+        type: DataTypes.INTEGER,
+    },
+}, {
+    timestamps: true
 });
 
-export default ImageActivities;
+
+export default User;    
