@@ -1,24 +1,16 @@
-import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import mongoose from "mongoose";
 
-const Customsize = db.define("Customsize", {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-        unique: true,
-    },
+const customsizeSchema = new mongoose.Schema({
     slideImg: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String
     },
     public_id: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String
     }
+
 }, {
     timestamps: true
-});
+})
 
+const Customsize = mongoose.model("Customsize", customsizeSchema);
 export default Customsize;

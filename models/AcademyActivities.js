@@ -1,26 +1,15 @@
-import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import mongoose from "mongoose";
 
-const AcademyActivities = db.define("AcademyActivities", {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-        unique: true,
-    },
+const academyActivitiesSchema = new mongoose.Schema({
     title: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true,
     },
     description: {
-        type: DataTypes.STRING,
-         allowNull: false
-    }
-},
-{
-    timestamps: true
-}
-);
+        type: String,
+    },
+});
+
+const AcademyActivities = mongoose.model("AcademyActivities", academyActivitiesSchema);
 
 export default AcademyActivities;

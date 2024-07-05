@@ -1,19 +1,24 @@
 import express from 'express';
-import upload from '../middleware/uploadImage.js';
 import {
-    getBlog,
-    getBlogById,
+    getBlogs,
+    getBlogsPublished,
     createBlog,
+    getBlogById,
     updateBlog,
-    deleteBlog,
+    deleteBlog
 } from '../controllers/blogController.js';
+import upload from '../helpers/uploadImage.js';
+import { checkAuth, isAdmin } from '../middleware/checkAuth.js';
+
 
 const router = express.Router();
 
-router.get('/blog', getBlog);
+router.get('/blog', getBlogs);
+router.get('/blog/published', getBlogsPublished);
 router.get('/blog/:id', getBlogById);
-router.post('/blog', upload.single('img'), createBlog);
-router.put('/blog/:id', upload.single('img'), updateBlog);
-router.delete('/blog/:id', deleteBlog);
+router.post('/blog', checkAuth, upload.single('img'), createBlog);
+router.put('/blog/:id', checkAuth, isAdmin, upload.single('img'), updateBlog);
+router.delete('/blog/:id', checkAuth, isAdmin, deleteBlog);
+
 
 export default router;

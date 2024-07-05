@@ -1,38 +1,35 @@
-import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import mongoose from "mongoose";
 
-const Blog = db.define("Blog", {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-        unique: true,
-    },
+const blogSchema = new mongoose.Schema({
     title: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true,
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    img: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    public_id:{
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true,
     },
     date: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-},
-    {
-        timestamps: true
-    }
-);
+        type: String,
+        required: true,
+    },
+    img: {
+        type: String,
+        required: true,
+    },
+    public_id: {
+        type: String,
+    },
+    isPublished: {
+        type: Boolean,
+        default: false,
+    },
+}, {
+    timestamps: true,
+});
+
+
+
+const Blog = mongoose.model("Blog", blogSchema);
 
 export default Blog;
